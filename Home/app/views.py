@@ -70,4 +70,4 @@ def profile(request):
 def logout(request):
     auth.logout(request)
     messages.success(request,'Logout Successfully')
-    return redirect(login)    
+    return redirect(login)
