@@ -1,23 +1,41 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 
-
 class Category(models.Model):
-    c_name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20)
 
     def __str__(self):
-        return str(self.c_name)
+        return str(self.name)
 
 
-class Products(models.Model):
-    p_name = models.CharField(max_length=45)
+class location(models.Model):
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return str(self.name)
+
+
+class Product(models.Model):
+    name = models.CharField(max_length=20)
     price = models.FloatField()
-    p_price = models.FloatField()
-    decription = models.TextField(max_length=500)
+    P_price = models.FloatField()
+    description = models.TextField(max_length=500)
     quantity = models.PositiveIntegerField(default=1)
-    p_pic = models.ImageField(upload_to='product_pic', null=True)
-    Category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
+    pic = models.ImageField(upload_to='productPIC', null=True)
+    loc = models.ForeignKey(location, on_delete=models.CASCADE, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return self.p_name
+        return str(self.name)
+
+
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return str(self.user)
